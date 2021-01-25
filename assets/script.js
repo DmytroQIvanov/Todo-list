@@ -1,7 +1,9 @@
 let inputTaskName = document.getElementById("input-task-name");
 let inputTaskDescription = document.getElementById("input-task-description");
-
-let dataArray = JSON.parse(localStorage.getItem("localData"));
+let dataArray = [];
+if (JSON.parse(localStorage.getItem("localData")) != null) {
+  dataArray = JSON.parse(localStorage.getItem("localData"));
+}
 addTask();
 
 document.addEventListener("keypress", (event) => {
