@@ -1,8 +1,8 @@
 let inputTaskName = document.getElementById("input-task-name");
 let inputTaskDescription = document.getElementById("input-task-description");
 
-// let dataArray = JSON.parse(localStorage.getItem("localData"));
-let dataArray = [];
+let dataArray = JSON.parse(localStorage.getItem("localData"));
+addTask();
 
 document.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
@@ -32,6 +32,7 @@ function addTask(
   alert(dataArray);
   document.querySelector("#el").innerHTML = " ";
 
+  localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
 
   let data = new Date();
