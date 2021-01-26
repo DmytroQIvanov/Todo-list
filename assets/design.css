@@ -71,3 +71,30 @@
   height: 4vh;
   cursor: pointer;
 }
+.setting-img {
+  width: 7vh;
+  position: absolute;
+  cursor: pointer;
+  right: 2vh;
+  transition-duration: 0.2s;
+  border: white solid 1px;
+  border-radius: 50px;
+  background-color: white;
+}
+.setting-img:hover {
+  transition-duration: 0.2s;
+  transform: rotate(-90deg);
+}
+
+.dark {
+  background-color: rgb(0, 0, 29);
+  color: white;
+}
+.white {
+  background-color: white;
+  color: black;
+}
+.blue {
+  background-color: rgb(115, 115, 255);
+  color: white;
+}

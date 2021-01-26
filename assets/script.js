@@ -17,7 +17,6 @@ function addTask(
   taskName = inputTaskName.value,
   taskDescription = inputTaskDescription.value
 ) {
-  let out = "";
   if (taskName != "") {
     dataArray.push({
       taskNameArray: taskName,
@@ -25,6 +24,13 @@ function addTask(
       taskDone: "",
     });
   }
+  updateTaskList();
+  inputTaskName.value = "";
+  inputTaskDescription.value = "";
+}
+
+function updateTaskList() {
+  let out = "";
   dataArray.map(function (name, indx) {
     out += `
       <div class="task-container">
@@ -40,17 +46,9 @@ function addTask(
 
   localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
-
-  let data = new Date();
-  // alert(data.getDate());
-
-  inputTaskName.value = "";
-  inputTaskDescription.value = "";
 }
-
 function taskDelete(elem) {
   dataArray.splice(elem.dataset.indx, 1);
-
   addTask();
 }
 function taskChange(elem) {
@@ -64,10 +62,29 @@ function taskChange(elem) {
   }
 }
 function taskDone(elem) {
-  if (dataArray[elem.dataset.indx].taskDone == "") {
-    dataArray[elem.dataset.indx].taskDone = "done";
-  } else {
-    dataArray[elem.dataset.indx].taskDone = "";
-  }
+  dataArray[elem.dataset.indx].taskDone == ""
+    ? (dataArray[elem.dataset.indx].taskDone = "done")
+    : (dataArray[elem.dataset.indx].taskDone = "");
+
   addTask();
+}
+let styleArray = JSON.parse(localStorage.getItem("localStyle"));
+changeStyle();
+
+function changeStyle() {
+  document.body.classList.add(styleArray[0].backgroundC);
+
+  let style = document.getElementsByName("style");
+
+  for (let i = 0; i <= style.length - 1; i++) {
+    if (style[i].checked == true) {
+      styleArray = [{ backgroundC: style[i].value }];
+
+      alert(styleArray[0].backgroundC);
+
+      document.body.classList.remove("dark", "white", "blue");
+      document.body.classList.add(styleArray[0].backgroundC);
+    }
+  }
+  localStorage.setItem("localStyle", JSON.stringify(styleArray));
 }
