@@ -68,7 +68,11 @@ function taskDone(elem) {
 
   addTask();
 }
-let styleArray = JSON.parse(localStorage.getItem("localStyle"));
+
+let styleArray = [{}];
+JSON.parse(localStorage.getItem("localStyle")) != null
+  ? (styleArray = JSON.parse(localStorage.getItem("localStyle")))
+  : (styleArray = [{}]);
 changeStyle();
 
 function changeStyle() {
