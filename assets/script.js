@@ -30,9 +30,10 @@ function addTask(
       <div class="task-container">
       <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
-      <button data-indx="${indx}" onclick="taskDelete(this)">Delete</button>
-      <button data-indx="${indx}" onclick="taskChange(this)">Change</button>
-      <button data-indx="${indx}" onclick="taskDone(this)">Done</button>
+      <button data-indx="${indx}" class="task-button" onclick="taskDelete(this)">Delete</button>
+      <button data-indx="${indx}" class="task-button l" onclick="taskChange(this)">Change</button>
+      <button data-indx="${indx}" class="task-button" onclick="taskDone(this)">Done</button>
+      
       </div>`;
   });
   document.querySelector("#el").innerHTML = " ";
