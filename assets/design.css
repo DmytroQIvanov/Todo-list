@@ -35,7 +35,8 @@
 }
 .container {
   display: flex;
-  border: blue solid 3px;
+  border: rgba(0, 0, 255, 0.295) double 3px;
+  border-radius: 12px;
 
   min-height: 30px;
 }
@@ -81,6 +82,11 @@
   border-radius: 50px;
   background-color: white;
 }
+.task-important {
+  width: 7vh;
+  margin-bottom: 0;
+  display: hidden;
+}
 .setting-img:hover {
   transition-duration: 0.2s;
   transform: rotate(-90deg);
@@ -96,5 +102,5 @@
 }
 .blue {
   background-color: rgb(115, 115, 255);
-  color: white;
+  color: rgb(0, 37, 48);
 }
