@@ -10,6 +10,7 @@
   margin: 6px;
 }
 .input-container {
+  display: flex;
 }
 #input-task-name {
   font-size: 3.5vh;
@@ -22,7 +23,6 @@
   border-radius: 3px;
 }
 #add-task-button {
-  position: fixed;
   margin: 6px;
   border: none;
   background-color: rgb(75, 47, 255);
