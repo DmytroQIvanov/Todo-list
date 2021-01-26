@@ -1,6 +1,7 @@
 let inputTaskName = document.getElementById("input-task-name");
 let inputTaskDescription = document.getElementById("input-task-description");
 let dataArray = [];
+
 if (JSON.parse(localStorage.getItem("localData")) != null) {
   dataArray = JSON.parse(localStorage.getItem("localData"));
 }
@@ -21,33 +22,51 @@ function addTask(
     dataArray.push({
       taskNameArray: taskName,
       taskDescriptionArray: taskDescription,
+      taskDone: "",
     });
   }
-  dataArray.map(function (name) {
+  dataArray.map(function (name, indx) {
     out += `
       <div class="task-container">
-      <div class="task-name">${name.taskNameArray}</div> 
+      <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
-      <button onclick="taskDelete(this)">Delete</button>
+      <button data-indx="${indx}" onclick="taskDelete(this)">Delete</button>
+      <button data-indx="${indx}" onclick="taskChange(this)">Change</button>
+      <button data-indx="${indx}" onclick="taskDone(this)">Done</button>
       </div>`;
   });
-  alert(dataArray);
   document.querySelector("#el").innerHTML = " ";
 
   localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
 
   let data = new Date();
-
   // alert(data.getDate());
 
   inputTaskName.value = "";
   inputTaskDescription.value = "";
-  taskBool = false;
 }
 
 function taskDelete(elem) {
-  dataArray.splice(0, 1);
-  alert(dataArray);
+  dataArray.splice(elem.dataset.indx, 1);
+
+  addTask();
+}
+function taskChange(elem) {
+  if (inputTaskName.value != "") {
+    dataArray[elem.dataset.indx].taskNameArray = inputTaskName.value;
+
+    inputTaskName.value = "";
+    inputTaskDescription.value = "";
+
+    addTask();
+  }
+}
+function taskDone(elem) {
+  if (dataArray[elem.dataset.indx].taskDone == "") {
+    dataArray[elem.dataset.indx].taskDone = "done";
+  } else {
+    dataArray[elem.dataset.indx].taskDone = "";
+  }
   addTask();
 }
