@@ -11,14 +11,16 @@
 }
 .input-container {
   display: flex;
+  width: 45vw;
+  height: 4.5vw;
 }
 #input-task-name {
-  font-size: 3.5vw;
+  font-size: 50%;
   margin: 5px;
   border-radius: 3px;
 }
 #input-task-description {
-  font-size: 3.5vw;
+  font-size: 50%;
   margin: 5px;
   border-radius: 3px;
 }
@@ -27,15 +29,17 @@
   border: none;
   background-color: rgb(75, 47, 255);
   border-radius: 5px;
-  max-width: 21vw;
+  max-width: 100%;
   padding: 3px;
-  height: 5vw;
-  width: 10vh;
+  height: 60%;
+  vertical-align: bottom;
+  width: 100vh;
   cursor: pointer;
 }
 .container {
   display: flex;
   border: rgba(0, 0, 255, 0.295) double 3px;
+  width: 97%;
   border-radius: 12px;
 
   min-height: 30px;
@@ -49,14 +53,20 @@
   border: rgba(45, 45, 78, 0.13) solid 1px;
   border-radius: 5px;
 }
+.task-container.deleted {
+  background-color: rgba(255, 0, 0, 0.103);
+}
+.history.history {
+  display: none;
+}
 .task-name {
-  font-size: 6vw;
+  /* font-size: 6vw; */
   color: rgb(18, 44, 131);
   left: 30px;
 }
 
 .task-description {
-  font-size: 5vw;
+  /* font-size: 5vw; */
   opacity: 80%;
   margin-right: 300px;
 }
@@ -123,4 +133,13 @@
 #property-block.show-property {
   display: block;
   max-width: 230vh;
+}
+.control-container {
+  display: inline;
+}
+.task-time {
+  vertical-align: text-bottom;
+  display: inline;
+  font-size: 60%;
+  margin-left: 25vh;
 }

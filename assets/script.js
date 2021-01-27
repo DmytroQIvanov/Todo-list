@@ -5,20 +5,21 @@ let inputTaskDescription = document.getElementById("input-task-description");
 let dataArray = [];
 let styleArray = [];
 let dataArrayHistory = [];
-JSON.parse(localStorage.getItem("localData")) != null
+localStorage.getItem("localData") != null
   ? (dataArray = JSON.parse(localStorage.getItem("localData")))
   : (dataArray = [{}]);
 
-JSON.parse(localStorage.getItem("localStyle")) != null
+localStorage.getItem("localStyle") != null
   ? (styleArray = JSON.parse(localStorage.getItem("localStyle")))
   : (styleArray = [{}]);
 
-JSON.parse(localStorage.getItem("localDataHistory")) != null
+localStorage.getItem("localDataHistory") != null
   ? (dataArrayHistory = JSON.parse(localStorage.getItem("localDataHistory")))
   : (dataArrayHistory = [{}]);
 
 changeStyle();
 updateTaskList();
+updateTaskListHistory();
 
 // ---Set Eventlisteners
 document.addEventListener("keypress", (event) => {
@@ -33,12 +34,15 @@ function addTask(
   taskDescription = inputTaskDescription.value
 ) {
   if (taskName != "") {
+    let timeofcreactionDate = new Date();
     dataArray.push({
       taskNameArray: taskName,
       taskDescriptionArray: taskDescription,
       taskDone: "",
+      timeOfCreation: timeofcreactionDate.getDate(),
     });
   }
+
   updateTaskList();
   inputTaskName.value = "";
   inputTaskDescription.value = "";
@@ -52,22 +56,57 @@ function updateTaskList() {
       <div class="task-container">
       <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
-      <button data-indx="${indx}" class="task-button" onclick="taskDelete(this)">Delete</button>
-      <button data-indx="${indx}" class="task-button l" onclick="taskChange(this)">Change</button>
-      <button data-indx="${indx}" class="task-button" onclick="taskDone(this)">Done</button>
-      
+      <div class="control-container">
+      <button data-indx="${indx}" data-array="dataArray" class="task-button" onclick="taskDelete(this,dataArray)">Delete</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button l" onclick="taskChange(this,dataArray)">Change</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button" onclick="taskDone(this,dataArray)">Done</button>
+      <span class="task-time">time created: ${name.timeOfCreation}</span>
+      </div>
+
       </div>`;
   });
   document.querySelector("#el").innerHTML = " ";
-
   localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
 }
 
-// ---Delete task
-function taskDelete(elem) {
-  dataArrayHistory.push(dataArray.splice(elem.dataset.indx, 1));
+function updateTaskListHistory() {
+  let out = "";
+  dataArrayHistory.map(function (name, indx) {
+    out += `
+      <div class="task-container deleted">
+      <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
+      <div class="task-description">${name.taskDescriptionArray}</div>
+      <div class="control-container">
+      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button" onclick="taskDelete(this, dataArrayHistory)">Delete</button>
+      
+      <span class="task-time">time created: ${name.timeOfCreation}</span>
+      </div>
+      </div>`;
+  });
+  /**<button data-indx="${indx}" data-array="dataArrayHistory" class="task-button l" onclick="taskChange(this, dataArrayHistory)">Change</button>
+      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button" onclick="taskDone(this, dataArrayHistory)">Done</button> */
+  document.querySelector("#history").innerHTML = " ";
   localStorage.setItem("localDataHistory", JSON.stringify(dataArrayHistory));
+  document.querySelector("#history").innerHTML = out;
+}
+
+// ---Delete task
+function taskDelete(elem, array) {
+  let bufer = array.splice(elem.dataset.indx, 1);
+  if (elem.dataset.array == "dataArray") {
+    dataArrayHistory.push({
+      taskNameArray: bufer[0].taskNameArray,
+      taskDescriptionArray: bufer[0].taskDescriptionArray,
+      taskDone: bufer[0].taskDone,
+      timeOfCreation: bufer[0].timeOfCreation,
+    });
+  } else if (elem.dataset.array == "dataArrayHistory") {
+  }
+
+  localStorage.setItem("localDataHistory", JSON.stringify(dataArrayHistory));
+  updateTaskListHistory();
+
   addTask();
 }
 
@@ -101,8 +140,6 @@ function changeStyle() {
     if (style[i].checked == true) {
       styleArray = [{ backgroundC: style[i].value }];
 
-      alert(styleArray[0].backgroundC);
-
       document.body.classList.remove("dark", "white", "blue");
       document.body.classList.add(styleArray[0].backgroundC);
     }
@@ -116,5 +153,5 @@ function showProperty() {
 }
 
 function historyTasks() {
-  alert(JSON.stringify(dataArrayHistory));
+  document.getElementById("history").classList.toggle("history");
 }
