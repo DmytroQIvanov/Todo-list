@@ -12,19 +12,19 @@
 
 <body>
   <img src="./assets/images/settings.png" class="setting-img" onclick="showProperty()">
-  <span id="todo-list-title">ToDo-List</span><button id="add-task-button" onclick="historyTasks()">History</button>
+  <span id="todo-list-title">ToDo-List</span><button class="add-task-button btn" onclick="historyTasks()">History</button>
   
 
   <div class="input-container">
     <input id="input-task-name" placeholder="Input Task" />
     <input id="input-task-description" placeholder="Description" />
-    <button onclick="addTask()" id="add-task-button">Enter  ---  (Press Enter)</button>
+    <button onclick="addTask()" id="add-task-button" class="add-task-button btn">Enter  ---  (Press Enter)</button>
     
     
   </div>
   <div class="container">
     <div id="el"></div>
-    <div class="history" id="history">ddddddddddddd</div>
+    <div class="history" id="history"></div>
   </div>
 
 
@@ -32,7 +32,9 @@
     Theme:<br>
     <input type="radio" name="style" value="dark">Dark<Br>
     <input type="radio" name="style" value="white">White<Br>
-    <input type="radio" name="style" value="blue">Blue
+    <input type="radio" name="style" value="blue">Blue<Br>
+    <input type="radio" name="style" value="coffe">Coffe<Br>
+    <input type="radio" name="style" value="red-gradient">Red-gradient
   
   
   

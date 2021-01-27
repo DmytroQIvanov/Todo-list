@@ -24,7 +24,7 @@
   margin: 5px;
   border-radius: 3px;
 }
-#add-task-button {
+.add-task-button {
   margin: 1%;
   border: none;
   background-color: rgb(75, 47, 255);
@@ -61,13 +61,13 @@
 }
 .task-name {
   /* font-size: 6vw; */
-  color: rgb(18, 44, 131);
+  color: currentColor;
   left: 30px;
 }
 
 .task-description {
   /* font-size: 5vw; */
-  opacity: 80%;
+  opacity: 75%;
   margin-right: 300px;
 }
 .done {
@@ -103,32 +103,54 @@
   margin-bottom: 0;
   display: hidden;
 }
-
+/*---Themes---*/
+/*-dark-*/
 .dark {
   background-color: rgb(0, 0, 29);
   color: white;
   font-size: 250%;
 }
+/*-white-*/
 .white {
   background-color: white;
   color: black;
   font-size: 250%;
 }
+/*-blue-*/
 .blue {
   background-color: rgb(115, 115, 255);
   color: rgb(0, 37, 48);
   font-size: 250%;
 }
 
+/*-coffe-*/
+.coffe {
+  background: linear-gradient(to left, rgb(141, 105, 6), rgb(87, 77, 32));
+  font-size: 250%;
+  color: rgb(24, 20, 17);
+}
+.coffe .btn {
+  background-color: rgb(165, 124, 70);
+}
+
+/*-red-gradient-*/
+.red-gradient {
+  background: linear-gradient(to left, rgb(141, 105, 6), rgba(255, 0, 0, 1));
+  font-size: 250%;
+}
+.red-gradient .btn {
+  background-color: rgb(240, 224, 5);
+}
+
+/*------------*/
 #property-block {
   display: none;
   position: absolute;
-  background-color: #513496;
+  background-color: rgb(172, 172, 184);
   border-radius: 10px;
   right: 1vw;
   top: 21vh;
   width: 20vw;
-  color: rgb(204, 209, 253);
 }
 #property-block.show-property {
   display: block;

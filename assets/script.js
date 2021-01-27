@@ -57,9 +57,9 @@ function updateTaskList() {
       <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
       <div class="control-container">
-      <button data-indx="${indx}" data-array="dataArray" class="task-button" onclick="taskDelete(this,dataArray)">Delete</button>
-      <button data-indx="${indx}" data-array="dataArray" class="task-button l" onclick="taskChange(this,dataArray)">Change</button>
-      <button data-indx="${indx}" data-array="dataArray" class="task-button" onclick="taskDone(this,dataArray)">Done</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskDelete(this,dataArray)">Delete</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskChange(this,dataArray)">Change</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskDone(this,dataArray)">Done</button>
       <span class="task-time">time created: ${name.timeOfCreation}</span>
       </div>
 
@@ -78,7 +78,7 @@ function updateTaskListHistory() {
       <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
       <div class="control-container">
-      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button" onclick="taskDelete(this, dataArrayHistory)">Delete</button>
+      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskDelete(this, dataArrayHistory)">Delete</button>
       
       <span class="task-time">time created: ${name.timeOfCreation}</span>
       </div>
@@ -140,7 +140,13 @@ function changeStyle() {
     if (style[i].checked == true) {
       styleArray = [{ backgroundC: style[i].value }];
 
-      document.body.classList.remove("dark", "white", "blue");
+      document.body.classList.remove(
+        "dark",
+        "white",
+        "blue",
+        "coffe",
+        "red-gradient"
+      );
       document.body.classList.add(styleArray[0].backgroundC);
     }
   }
