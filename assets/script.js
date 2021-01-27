@@ -2,9 +2,9 @@ let inputTaskName = document.getElementById("input-task-name");
 let inputTaskDescription = document.getElementById("input-task-description");
 
 // ---Getting data {dataArray, styleArray}
-let dataArray = [{}];
-let styleArray = [{}];
-let dataArrayHistory = [{}];
+let dataArray = [];
+let styleArray = [];
+let dataArrayHistory = [];
 JSON.parse(localStorage.getItem("localData")) != null
   ? (dataArray = JSON.parse(localStorage.getItem("localData")))
   : (dataArray = [{}]);
@@ -66,7 +66,8 @@ function updateTaskList() {
 
 // ---Delete task
 function taskDelete(elem) {
-  dataArray.splice(elem.dataset.indx, 1);
+  dataArrayHistory.push(dataArray.splice(elem.dataset.indx, 1));
+  localStorage.setItem("localDataHistory", JSON.stringify(dataArrayHistory));
   addTask();
 }
 
@@ -112,4 +113,8 @@ function changeStyle() {
 // ---Show Property
 function showProperty() {
   document.getElementById("property-block").classList.toggle("show-property");
+}
+
+function historyTasks() {
+  alert(JSON.stringify(dataArrayHistory));
 }
