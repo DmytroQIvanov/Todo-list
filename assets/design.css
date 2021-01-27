@@ -7,7 +7,7 @@
   font-size: 4vw;
   font-weight: 800;
   font-family: Georgia, "Times New Roman", Times, serif;
-  margin: 6px;
+  margin: 1%;
 }
 .input-container {
   display: flex;
@@ -23,13 +23,13 @@
   border-radius: 3px;
 }
 #add-task-button {
-  margin: 6px;
+  margin: 1%;
   border: none;
   background-color: rgb(75, 47, 255);
   border-radius: 5px;
-  max-width: 21vh;
+  max-width: 21vw;
   padding: 3px;
-  height: 8vh;
+  height: 5vw;
   cursor: pointer;
 }
 .container {
@@ -69,7 +69,8 @@
   background-color: rgb(75, 47, 255);
   border-radius: 5px;
   width: 10vw;
-  height: 4vw;
+  max-height: 4.5vh;
+
   cursor: pointer;
 }
 .setting-img {
@@ -79,17 +80,17 @@
   right: 2vw;
   transition-duration: 0.2s;
   border: white solid 1px;
-  border-radius: 50px;
+  border-radius: 500px;
   background-color: white;
+}
+
+.setting-img:hover {
+  transform: rotate(-120deg);
 }
 .task-important {
   width: 7vw;
   margin-bottom: 0;
   display: hidden;
-}
-.setting-img:hover {
-  transition-duration: 0.2s;
-  transform: rotate(-120deg);
 }
 
 .dark {
