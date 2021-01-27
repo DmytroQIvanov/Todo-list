@@ -11,13 +11,20 @@
 </head>
 
 <body>
-  <img src="./assets/images/settings.png" class="setting-img" onclick="changeStyle()">
-  <div id="todo-list-title">ToDo-List</div>
-  <p><input type="radio" name="style" value="dark">Dark<Br>
+  <img src="./assets/images/settings.png" class="setting-img" onclick="showProperty()">
+  <span id="todo-list-title">ToDo-List</span><button id="add-task-button" onclick="alert('Soon')">History</button>
+  
+
+    <span id="property-block" >
+      Theme:<br>
+    <input type="radio" name="style" value="dark">Dark<Br>
     <input type="radio" name="style" value="white">White<Br>
     <input type="radio" name="style" value="blue">Blue
+
+    
+
     <button onclick="changeStyle()">--Set--</button>
-  </p>
+    </span>
   
   <div class="input-container">
     <input id="input-task-name" placeholder="Input Task" />

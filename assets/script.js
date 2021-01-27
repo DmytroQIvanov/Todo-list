@@ -1,18 +1,33 @@
 let inputTaskName = document.getElementById("input-task-name");
 let inputTaskDescription = document.getElementById("input-task-description");
-let dataArray = [];
 
-if (JSON.parse(localStorage.getItem("localData")) != null) {
-  dataArray = JSON.parse(localStorage.getItem("localData"));
-}
-addTask();
+// ---Getting data {dataArray, styleArray}
+let dataArray = [{}];
+let styleArray = [{}];
+let dataArrayHistory = [{}];
+JSON.parse(localStorage.getItem("localData")) != null
+  ? (dataArray = JSON.parse(localStorage.getItem("localData")))
+  : (dataArray = [{}]);
 
+JSON.parse(localStorage.getItem("localStyle")) != null
+  ? (styleArray = JSON.parse(localStorage.getItem("localStyle")))
+  : (styleArray = [{}]);
+
+JSON.parse(localStorage.getItem("localDataHistory")) != null
+  ? (dataArrayHistory = JSON.parse(localStorage.getItem("localDataHistory")))
+  : (dataArrayHistory = [{}]);
+
+changeStyle();
+updateTaskList();
+
+// ---Set Eventlisteners
 document.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
     addTask();
   }
 });
 
+// ---Add a task
 function addTask(
   taskName = inputTaskName.value,
   taskDescription = inputTaskDescription.value
@@ -29,6 +44,7 @@ function addTask(
   inputTaskDescription.value = "";
 }
 
+// ---Update task list
 function updateTaskList() {
   let out = "";
   dataArray.map(function (name, indx) {
@@ -47,10 +63,14 @@ function updateTaskList() {
   localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
 }
+
+// ---Delete task
 function taskDelete(elem) {
   dataArray.splice(elem.dataset.indx, 1);
   addTask();
 }
+
+// ---Change task
 function taskChange(elem) {
   if (inputTaskName.value != "") {
     dataArray[elem.dataset.indx].taskNameArray = inputTaskName.value;
@@ -61,6 +81,7 @@ function taskChange(elem) {
     addTask();
   }
 }
+// ---Task Done
 function taskDone(elem) {
   dataArray[elem.dataset.indx].taskDone == ""
     ? (dataArray[elem.dataset.indx].taskDone = "done")
@@ -69,12 +90,7 @@ function taskDone(elem) {
   addTask();
 }
 
-let styleArray = [{}];
-JSON.parse(localStorage.getItem("localStyle")) != null
-  ? (styleArray = JSON.parse(localStorage.getItem("localStyle")))
-  : (styleArray = [{}]);
-changeStyle();
-
+// ---Change Style
 function changeStyle() {
   document.body.classList.add(styleArray[0].backgroundC);
 
@@ -91,4 +107,9 @@ function changeStyle() {
     }
   }
   localStorage.setItem("localStyle", JSON.stringify(styleArray));
+}
+
+// ---Show Property
+function showProperty() {
+  document.getElementById("property-block").classList.toggle("show-property");
 }
