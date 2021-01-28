@@ -86,7 +86,7 @@ function updateTaskListHistory() {
       <div class="task-description">${name.taskDescriptionArray}</div>
       <div class="control-container">
       <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskDelete(this, dataArrayHistory)">Delete</button>
-      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskRestore(this, dataArrayHistory)">Restore</button>
+      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskRestore(this)">Restore</button>
       
       <span class="task-time">time created: ${name.timeOfCreation}</span>
       </div>
@@ -148,15 +148,45 @@ function taskDone(elem) {
   addTask();
 }
 
+function taskRestore(elem) {
+  dataArray.push({
+    taskNameArray: dataArrayHistory[elem.dataset.indx].taskNameArray,
+    taskDescriptionArray:
+      dataArrayHistory[elem.dataset.indx].taskDescriptionArray,
+    taskDone: dataArrayHistory[elem.dataset.indx].taskDone,
+    timeOfCreation: dataArrayHistory[elem.dataset.indx].timeOfCreation,
+  });
+  dataArrayHistory.splice(elem.dataset.indx);
+  updateTaskList();
+  updateTaskListHistory();
+}
+
+function historyTasks() {
+  if (dataArrayHistory[0] == null) {
+    alert("История чиста");
+    document.getElementById("history").classList.remove("history");
+  } else {
+    document.getElementById("history").classList.toggle("history");
+  }
+}
+
+// ---Show Property
+function showProperty() {
+  document.getElementById("property-block").classList.toggle("show-property");
+}
+
 // ---Change Style
 function changeStyle() {
   document.body.classList.add(styleArray[0].backgroundC);
+  document.body.classList.add(styleArray[0].taskFlex);
 
   let style = document.getElementsByName("style");
 
   for (let i = 0; i <= style.length - 1; i++) {
     if (style[i].checked == true) {
-      styleArray = [{ backgroundC: style[i].value }];
+      styleArray = [
+        { backgroundC: style[i].value, taskFlex: styleArray[0].taskFlex },
+      ];
 
       document.body.classList.remove(
         "dark",
@@ -168,14 +198,17 @@ function changeStyle() {
       document.body.classList.add(styleArray[0].backgroundC);
     }
   }
+
+  let flex = document.getElementsByName("flex");
+  for (let i = 0; i <= flex.length - 1; i++) {
+    if (flex[i].checked == true) {
+      styleArray = [
+        { backgroundC: styleArray[0].backgroundC, taskFlex: flex[i].value },
+      ];
+
+      document.body.classList.remove("inline", "blocks");
+      document.body.classList.add(styleArray[0].taskFlex);
+    }
+  }
   localStorage.setItem("localStyle", JSON.stringify(styleArray));
-}
-
-// ---Show Property
-function showProperty() {
-  document.getElementById("property-block").classList.toggle("show-property");
-}
-
-function historyTasks() {
-  document.getElementById("history").classList.toggle("history");
 }

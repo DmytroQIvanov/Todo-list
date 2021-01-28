@@ -7,6 +7,8 @@
   font-size: 4vw;
   font-weight: 800;
   font-family: "Merriweather", serif;
+
+  padding: 3px;
   margin: 1%;
 }
 .input-container {
@@ -44,20 +46,18 @@
   border-radius: 12px;
 
   min-height: 30px;
-  flex-wrap: nowrap;
 }
 
 #el {
-  display: flex;
+  display: inline;
+
   height: max-content;
-  border: violet solid 3px;
-  flex-wrap: wrap;
   float: left;
   top: 0;
 }
 .task-container {
+  width: 92vh;
   float: left;
-  width: 30vw;
   justify-content: center;
   margin: 5px;
   /* background-color: rgba(2, 146, 151, 0.068); */
@@ -73,6 +73,7 @@
 }
 .history {
   float: right;
+  display: block;
 }
 .history.history {
   display: none;
@@ -118,7 +119,7 @@
 }
 
 .setting-img:hover {
-  transform: rotate(-120deg);
+  transform: rotate(-150deg);
 }
 .task-important {
   width: 7vw;
@@ -151,8 +152,10 @@
 
 /*-coffe-*/
 .coffe {
-  background: linear-gradient(to left, rgb(141, 105, 6), rgb(87, 77, 32));
-  font-size: 250%;
+  background-image: linear-gradient(to left, rgb(141, 105, 6), rgb(87, 77, 32));
+
+  background-size: 130%;
+  font-size: 200%;
   color: rgb(24, 20, 17);
 }
 .coffe .btn {
@@ -177,6 +180,7 @@
   right: 1vw;
   top: 21vh;
   width: 20vw;
+  font-size: 75%;
 }
 #property-block.show-property {
   display: block;
