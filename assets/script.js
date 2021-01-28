@@ -7,7 +7,7 @@ let styleArray = [];
 let dataArrayHistory = [];
 localStorage.getItem("localData") != null
   ? (dataArray = JSON.parse(localStorage.getItem("localData")))
-  : (dataArray = [{}]);
+  : (dataArray = []);
 
 localStorage.getItem("localStyle") != null
   ? (styleArray = JSON.parse(localStorage.getItem("localStyle")))
@@ -15,7 +15,7 @@ localStorage.getItem("localStyle") != null
 
 localStorage.getItem("localDataHistory") != null
   ? (dataArrayHistory = JSON.parse(localStorage.getItem("localDataHistory")))
-  : (dataArrayHistory = [{}]);
+  : (dataArrayHistory = []);
 
 changeStyle();
 updateTaskList();
@@ -24,7 +24,10 @@ updateTaskListHistory();
 // ---Set Eventlisteners
 document.addEventListener("keypress", (event) => {
   if (event.key == "Enter") {
-    addTask();
+    if (inputTaskName.value != "" || inputTaskDescription.value != "") {
+      addTask();
+    } else {
+    }
   }
 });
 
@@ -53,18 +56,22 @@ function updateTaskList() {
   let out = "";
   dataArray.map(function (name, indx) {
     out += `
-      <div class="task-container">
-      <div class="task-name ${name.taskDone}" >${name.taskNameArray}   ${indx}</div> 
+      <span class="task-container">
+      <div class="task-name ${name.taskDone}" >${name.taskNameArray}</div> 
       <div class="task-description">${name.taskDescriptionArray}</div>
       <div class="control-container">
+      <input class="change-input" id="change-input" data-input="${indx}"/>
+      <div>
       <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskDelete(this,dataArray)">Delete</button>
-      <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskChange(this,dataArray)">Change</button>
+      <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskChange(this,dataArray)">Change ${indx}</button>
       <button data-indx="${indx}" data-array="dataArray" class="task-button btn" onclick="taskDone(this,dataArray)">Done</button>
-      <span class="task-time">time created: ${name.timeOfCreation}</span>
+      </div>
+      
       </div>
 
-      </div>`;
+      </span>`;
   });
+  //<span class="task-time">time created: ${name.timeOfCreation}</span>
   document.querySelector("#el").innerHTML = " ";
   localStorage.setItem("localData", JSON.stringify(dataArray));
   document.querySelector("#el").innerHTML = out;
@@ -79,6 +86,7 @@ function updateTaskListHistory() {
       <div class="task-description">${name.taskDescriptionArray}</div>
       <div class="control-container">
       <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskDelete(this, dataArrayHistory)">Delete</button>
+      <button data-indx="${indx}" data-array="dataArrayHistory" class="task-button btn" onclick="taskRestore(this, dataArrayHistory)">Restore</button>
       
       <span class="task-time">time created: ${name.timeOfCreation}</span>
       </div>
@@ -112,12 +120,22 @@ function taskDelete(elem, array) {
 
 // ---Change task
 function taskChange(elem) {
-  if (inputTaskName.value != "") {
-    dataArray[elem.dataset.indx].taskNameArray = inputTaskName.value;
+  let inputName = document.querySelector(
+    `.change-input[data-input="${elem.dataset.indx}"]`
+  );
+  document.addEventListener("keypress", (event) => {
+    if (event.key == "Enter") {
+      if (inputName.value != "") {
+        taskChange(elem);
+      }
+    }
+  });
 
-    inputTaskName.value = "";
+  inputName.classList.toggle("show");
+  if (inputName.value != "") {
+    dataArray[elem.dataset.indx].taskNameArray = inputName.value;
+    inputName.value = "";
     inputTaskDescription.value = "";
-
     addTask();
   }
 }
